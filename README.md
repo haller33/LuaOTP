@@ -6,6 +6,8 @@ A simple One Time Password (OTP) library in lua
 
 Compatible with Authy and Google Authenticator. Full support for QR code url is provided.
 
+Copyright (c) 2021 Cody Tilkins MIT
+
 
 ## Libraries Needed
 
@@ -28,11 +30,6 @@ Here you can obtain them:
 You will need to configure the paths of the requires of this library. I am guessing you don't compile everything into one directory, but whatever. It is simple and quick. Everything is already preconfigured to be manipulated there, just replace the path.
 
 When it comes down to it, this library will convert your integer numbers to string and do a comparison byte by byte. There is no need for expensive testing - nobody knows what is going on except the key holders and the key can't be reversed because we only send a small part of the hmac. That being said, there is no support for digits > 9 yet - as this is half an int's limit.
-
-
-## Description
-
-This was actually a spawn off pyotp, but I would necessarily say the code was copied. Things in python aren't in lua, therefore I had to make the methods myself. However, credits will go to the module for providing a guideline of what to do. [Here](https://github.com/pyotp/pyotp) you can find pyotp and realize how different it really is.
 
 
 _____________
@@ -58,5 +55,4 @@ To use this library, pick either TOTP or HOTP then use the provided files - givi
 * Add comments - there are lacking comments, should match up to COTP's style
 * Remove the dependancy on basexx - I have an implementation found in COTP and JOTP that can be ported.
 * bit32 isn't actually an external dependancy, but depending on the version you prefer, it is
-* sha1 make sure we aren't infringing anything with this
 

@@ -1,8 +1,32 @@
+--[[
+MIT License
+
+Copyright (c) 2021 Cody Tilkins
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+]]
 
 -- please point these to proper location
-local basexx = require("basexx.lua")
-local sha1 = require("sha1.lua")
-local util = require("util.lua")
+local basexx = require("basexx")
+local sha1 = require("sha1")
+local util = require("util")
+local bit32 = require("bit32")
 
 local otp = {
 	util = util
@@ -38,6 +62,10 @@ end
 
 
 otp.generate_otp = function(instance, input)
+	if (input < 0) then
+		return nil
+	end
+	
 	local hash = sha1.hmac_binary(otp.byte_secret(instance), otp.int_to_bytestring(input))
 	local offset = bit32.band(string.byte(hash:sub(-1, -1)), 0xF) + 1
 	
@@ -50,7 +78,7 @@ otp.generate_otp = function(instance, input)
 		bit32.lshift(bit32.band(bhash[offset + 3], 0xFF), 0)
 	)
 	
-	local str_code = tostring(code % math.pow(10, instance.digits))
+	local str_code = tostring(math.floor(code % (10 ^ instance.digits)))
 	while #str_code < instance.digits do
 		str_code = '0' .. str_code
 	end
@@ -59,7 +87,7 @@ otp.generate_otp = function(instance, input)
 end
 
 otp.byte_secret = function(instance)
-	local missing_padding = #instance.secret % 8
+	local missing_padding = #(instance.secret) % 8
 	if (missing_padding ~= 0) then
 		instance.secret = instance.secret .. string.rep('=', (8 - missing_padding))
 	end
@@ -73,16 +101,6 @@ otp.int_to_bytestring = function(i, padding)
 		i = bit32.rshift(i, 8)
 	end
 	return string.rep('\0', math.max(0, (padding or 8) - #bytes)) .. util.byte_arr_tostring(util.arr_reverse(bytes))
-end
-
-otp.random_base32 = function(length, chars)
-	length = length or 16
-	chars = chars or util.default_chars
-	local out = ""
-	for i=1, length do
-		out = out .. chars[math.random(1, #chars)]
-	end
-	return out
 end
 
 return otp
