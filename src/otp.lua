@@ -24,7 +24,7 @@ SOFTWARE.
 
 -- please point these to proper location
 local basexx = require("basexx")
-local sha1 = require("sha1")
+local sha1 = require("sha1.lua")
 local util = require("util")
 local bit32 = require("bit32.lua")
 
