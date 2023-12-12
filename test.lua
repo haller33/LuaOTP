@@ -34,12 +34,14 @@ local DIGITS		= 6;
 local BASE32_SECRET	= "2FASTEST";
 local DIGEST 		= "SHA1";
 
+-- package.path = 'src' .. ';' .. 'src.?.lua' .. package.path
 
+package.path = package.path .. ';' .. './src/?.lua'
 
 local OTP  = require("otp")
 local TOTP = require("totp")
-local HOTP = require("hotp")
-local UTIL = require("util")
+local HOTP = require("src.hotp")
+local UTIL = require("src.util")
 
 
 -- Create OTPData struct, which decides the environment

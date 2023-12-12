@@ -1,3 +1,5 @@
+package.path = package.path .. ';' .. '../src/?.lua'
+
 local OTP = require ('otp')
 local TOTP = require ('totp')
 local INIP = require ('ini')

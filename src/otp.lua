@@ -23,10 +23,11 @@ SOFTWARE.
 ]]
 
 -- please point these to proper location
-local basexx = require("basexx")
-local sha1 = require("sha1.lua")
+
 local util = require("util")
+local sha1 = require("sha1.lua")
 local bit32 = require("bit32.lua")
+local basexx = require("basexx.lua")
 
 local otp = {
 	util = util
