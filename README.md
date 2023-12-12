@@ -11,6 +11,8 @@ Copyright (c) 2023 Haller33
 
 ## Usage
 
+A simple 2FA checker for instance
+
 ``` lua
 local OTP  = require("otp")
 local TOTP = require("totp")
@@ -30,7 +32,7 @@ local totp_err_1 = TOTP.now(tdata)
 print("TOTP Generated: `" .. totp_err_1 .. "`")
 ```
 
-also can validate tokens from (the secret on Secret base32)
+also can validate tokens from (the BASE32_SECRET)
 
 https://2fas.com/check-token/
 
