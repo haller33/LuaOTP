@@ -30,7 +30,8 @@ SOFTWARE.
 local INTERVAL		= 30;
 local DIGITS		= 6;
 -- local BASE32_SECRET	= "JBSWY3DPEHPK3PXP";
-local BASE32_SECRET	= "4S62BZNFXXSZLCRO";
+-- local BASE32_SECRET	= "4S62BZNFXXSZLCRO"; -- test to confir works on https://github.com/xlzd/gotp#working-example
+local BASE32_SECRET	= "2FASTEST";
 local DIGEST 		= "SHA1";
 
 
@@ -47,7 +48,7 @@ local tdata = OTP.new(BASE32_SECRET, DIGITS, DIGEST, 30) -- TODO: needs hmac alg
 OTP.type = "hotp"
 local hdata = OTP.new(BASE32_SECRET, DIGITS, DIGEST)
 
-
+--[[
 -- Dump data members of struct OTPData tdata
 print("\\\\ totp tdata \\\\")
 print("tdata.digits: `" .. tdata.digits .. "`")
@@ -70,12 +71,13 @@ print("hdata.secret: `" .. hdata.secret .. "`")
 print("// hotp hdata //\n")
 
 print("Current Time: `" .. os.time() .. "`")
-
+]]--
 
 ----------------------------------------------------------------
 -- URI Example                                                --
 ----------------------------------------------------------------
 
+--[[
 local name1 = "name1"
 local name2 = "name2"
 local whatever1 = "account@whatever1.com"
@@ -88,11 +90,11 @@ local counter = 52;
 local uri2 = OTP.util.build_uri(hdata.secret, name2, counter, whatever2, DIGEST, DIGITS, nil)
 print("HOTP URI 2: `" .. uri2 .. "`\n")
 
-
+]]--
 ----------------------------------------------------------------
 -- BASE32 Stuff                                               --
 ----------------------------------------------------------------
-
+--[[
 -- seed random generator
 math.randomseed(os.time())
 math.random(1, 2)
@@ -103,7 +105,7 @@ local base32_new_secret = UTIL.random_base32(base32_len, OTP.util.default_chars)
 print("Generated BASE32 Secret: `" .. base32_new_secret .. "`")
 
 print("") -- line break for readability
-
+]]--
 
 ----------------------------------------------------------------
 -- TOTP Stuff                                                 --

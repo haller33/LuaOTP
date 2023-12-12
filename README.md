@@ -9,11 +9,40 @@ Compatible with Authy and Google Authenticator. Full support for QR code url is 
 Copyright (c) 2021 Cody Tilkins MIT
 Copyright (c) 2023 Haller33
 
+## Usage
 
-## Libraries Needed
+``` lua
+local INTERVAL		= 30;
+local DIGITS		= 6;
+-- test to confir works on https://github.com/xlzd/gotp#working-example
+local BASE32_SECRET	= "4S62BZNFXXSZLCRO"; 
+local DIGEST 		= "SHA1";
+
+local OTP  = require("otp")
+local TOTP = require("totp")
+local HOTP = require("hotp")
+local UTIL = require("util")
+
+-- Create OTPData struct, which decides the environment
+OTP.type = "totp"
+local tdata = OTP.new(BASE32_SECRET, DIGITS, DIGEST, 30) -- TODO: needs hmac algo, fix differentiation
+OTP.type = "hotp"
+local hdata = OTP.new(BASE32_SECRET, DIGITS, DIGEST)
+
+-- totp.now
+local totp_err_1 = TOTP.now(tdata)
+print("TOTP Generated: `" .. totp_err_1 .. "`")
+-- totp.at
+local totp_err_2 = TOTP.at(tdata, 1, 0)
+print("TOTP Generated: `" .. totp_err_1 .. "`")
+
+```
+
+
+## Libraries Needed but now is all Offline
 
 In order to utilize this library, you will need the following libraries:
-* bit32 (already there in Lua 5.3, no config required)
+* bit32 (already there in Lua 5.3, no config required, but we add anyway to support Lua 5.1)
 * basexx
 * sha1
 
