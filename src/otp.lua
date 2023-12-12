@@ -26,7 +26,7 @@ SOFTWARE.
 local basexx = require("basexx")
 local sha1 = require("sha1")
 local util = require("util")
-local bit32 = require("bit32")
+local bit32 = require("bit32.lua")
 
 local otp = {
 	util = util

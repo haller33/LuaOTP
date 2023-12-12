@@ -29,7 +29,8 @@ SOFTWARE.
 
 local INTERVAL		= 30;
 local DIGITS		= 6;
-local BASE32_SECRET	= "JBSWY3DPEHPK3PXP";
+-- local BASE32_SECRET	= "JBSWY3DPEHPK3PXP";
+local BASE32_SECRET	= "4S62BZNFXXSZLCRO";
 local DIGEST 		= "SHA1";
 
 
@@ -125,6 +126,7 @@ local tv1 = TOTP.verify(tdata, 576203, os.time(), 4)
 local tv2 = TOTP.verify(tdata, 282760, 0, 4)
 print("TOTP Verification 1: `" .. tostring(tv1) .. "`")
 print("TOTP Verification 2: `" .. tostring(tv2) .. "`")
+
 
 print("") -- line break for readability
 
