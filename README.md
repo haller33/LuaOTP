@@ -12,32 +12,27 @@ Copyright (c) 2023 Haller33
 ## Usage
 
 ``` lua
-local INTERVAL		= 30;
-local DIGITS		= 6;
--- test to confir works on https://github.com/xlzd/gotp#working-example
-local BASE32_SECRET	= "4S62BZNFXXSZLCRO"; 
-local DIGEST 		= "SHA1";
-
 local OTP  = require("otp")
 local TOTP = require("totp")
-local HOTP = require("hotp")
-local UTIL = require("util")
+
+-- test to confir works on https://github.com/xlzd/gotp#working-example
+local BASE32_SECRET = "4S62BZNFXXSZLCRO"; 
+local INTERVAL      = 30;
+local DIGITS        = 6;
+local DIGEST        = "SHA1";
 
 -- Create OTPData struct, which decides the environment
 OTP.type = "totp"
-local tdata = OTP.new(BASE32_SECRET, DIGITS, DIGEST, 30) -- TODO: needs hmac algo, fix differentiation
-OTP.type = "hotp"
-local hdata = OTP.new(BASE32_SECRET, DIGITS, DIGEST)
+local tdata = OTP.new(BASE32_SECRET, DIGITS, DIGEST, 30)
 
 -- totp.now
 local totp_err_1 = TOTP.now(tdata)
 print("TOTP Generated: `" .. totp_err_1 .. "`")
--- totp.at
-local totp_err_2 = TOTP.at(tdata, 1, 0)
-print("TOTP Generated: `" .. totp_err_1 .. "`")
-
 ```
 
+also can validate tokens from (the secret on Secret base32)
+
+https://2fas.com/check-token/
 
 ## Libraries Needed but now is all Offline
 
