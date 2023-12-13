@@ -63,7 +63,7 @@ _____________
 
 ## License
 
-This library is licensed under GNU General Public License v3.0.
+This library is licensed under MIT License
 
 bit32 is licensed by Lua under MIT, see the full license [here](https://www.lua.org/license.html)
 
